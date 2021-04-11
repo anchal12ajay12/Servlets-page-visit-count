@@ -14,7 +14,7 @@ class Counter{
     	count = 0;
     }
   
-    public static  Counter getInstance(){
+    public synchronized static  Counter getInstance(){
         if (single_instance == null)
             single_instance = new Counter();
   
@@ -32,25 +32,14 @@ class Counter{
 
 public class DemoTest  extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	Counter pageHit;
 	
-	public void init(ServletConfig config) throws ServletException {
-		pageHit = Counter.getInstance();
-	}
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		PrintWriter out = response.getWriter();
 		
-			pageHit.incrementCounter();
-			out.write("<html><body><h1>Counter: "+ pageHit.getCount()+ "\n</h1></body></html>");
-			
-		
+		Counter.getInstance().incrementCounter();
+		out.write("<html><body><h1>Counter: "+ Counter.getInstance().getCount()+ "\n</h1></body></html>");
 
-	}
-	
-	public void destroy() {
-		
 	}
 
 }
