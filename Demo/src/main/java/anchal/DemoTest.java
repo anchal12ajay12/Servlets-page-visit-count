@@ -42,7 +42,7 @@ public class DemoTest  extends HttpServlet {
 		
 		PrintWriter out = response.getWriter();
 		
-		
+			pageHit.incrementCounter();
 			out.write("<html><body><h1>Counter: "+ pageHit.getCount()+ "\n</h1></body></html>");
 			
 		
